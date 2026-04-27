@@ -1,0 +1,128 @@
+.root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 20px 16px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.bg {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(124,77,255,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(255,77,124,0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.ghostIcon {
+  font-size: 80px;
+  animation: pulse-heartbeat 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(124,77,255,0.6));
+}
+
+.title {
+  font-size: 42px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c4dff, #ff4d7c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -1px;
+  margin-top: 12px;
+}
+
+.subtitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-dim);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.tagline {
+  font-size: 14px;
+  color: var(--text-dim);
+  margin-top: 16px;
+  max-width: 240px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.howTo {
+  margin-top: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.howTo h3 {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.howTo p {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.howTo ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.howTo li {
+  font-size: 13px;
+  color: var(--text);
+}
+
+.footer {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.footerStatus {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}

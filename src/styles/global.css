@@ -1,0 +1,154 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #0a0a0f;
+  --surface:     #13131c;
+  --surface2:    #1c1c2e;
+  --border:      #2a2a3e;
+  --accent:      #7c4dff;
+  --accent2:     #ff4d7c;
+  --green:       #00e676;
+  --yellow:      #ffd740;
+  --red:         #ff1744;
+  --text:        #e8e8f0;
+  --text-dim:    #8888aa;
+  --fog:         rgba(124, 77, 255, 0.15);
+  --danger-glow: rgba(255, 23, 68, 0.3);
+
+  --p1: #e74c3c;
+  --p2: #3498db;
+  --p3: #2ecc71;
+  --p4: #f39c12;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.app-shell {
+  width: 100%;
+  max-width: 430px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* ── Animations ── */
+
+@keyframes pulse-heartbeat {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.15); opacity: 0.8; }
+}
+
+@keyframes fog-shimmer {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+@keyframes danger-glow {
+  0%, 100% { box-shadow: 0 0 8px var(--danger-glow); }
+  50%       { box-shadow: 0 0 24px var(--danger-glow), 0 0 48px var(--danger-glow); }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes token-move {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+@keyframes repair-flash {
+  0%   { opacity: 0; transform: scale(0.6); }
+  35%  { opacity: 0.9; transform: scale(1.05); }
+  100% { opacity: 0; transform: scale(1.6); }
+}
+
+@keyframes gate-unlock-ring {
+  0%   { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+@keyframes capture-shake {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  20%  { transform: rotate(-18deg) scale(1.1); }
+  40%  { transform: rotate(18deg) scale(1.1); }
+  60%  { transform: rotate(-12deg) scale(1.05); }
+  80%  { transform: rotate(12deg) scale(1.05); }
+}
+
+/* ── Utilities ── */
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.1s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.btn:active { transform: scale(0.96); }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-danger {
+  background: var(--red);
+  color: #fff;
+}
+
+.btn-ghost {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-success {
+  background: var(--green);
+  color: #000;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--surface2);
+  color: var(--text-dim);
+}

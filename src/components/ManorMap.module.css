@@ -1,0 +1,26 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+  padding: 8px;
+  flex: 1;
+}
+
+.empty {
+  /* empty placeholder cell */
+}
+
+.cellWrapper {
+  transition: transform 0.1s;
+}
+
+.reachable > * {
+  border-color: rgba(124,77,255,0.4);
+  cursor: pointer;
+}
+
+.reachable > *:hover {
+  border-color: var(--accent);
+  background: rgba(124,77,255,0.08);
+}

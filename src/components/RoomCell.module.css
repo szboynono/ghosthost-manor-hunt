@@ -1,0 +1,168 @@
+.cell {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px 4px 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-height: 88px;
+  transition: border-color 0.15s, background 0.15s;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  font-family: inherit;
+}
+
+.cell:active { transform: scale(0.97); }
+
+.selected {
+  border-color: var(--accent);
+  background: rgba(124,77,255,0.12);
+}
+
+.danger {
+  border-color: rgba(255,23,68,0.5);
+  animation: danger-glow 1.8s ease-in-out infinite;
+}
+
+.dangerHigh {
+  border-color: rgba(255,23,68,0.85);
+  animation: danger-glow 0.8s ease-in-out infinite;
+}
+
+.trapped {
+  border-color: rgba(255,215,64,0.5);
+}
+
+.gateOpen {
+  border-color: var(--green);
+  background: rgba(0,230,118,0.08);
+}
+
+.fogOverlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(124,77,255,0.15) 0%, transparent 70%);
+  animation: fog-shimmer 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.repairFlashOverlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0,230,118,0.7) 0%, transparent 70%);
+  border-radius: 10px;
+  animation: repair-flash 0.75s ease-out forwards;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.gateUnlockRing {
+  position: absolute;
+  inset: 0;
+  border: 3px solid var(--green);
+  border-radius: 10px;
+  animation: gate-unlock-ring 0.9s ease-out forwards;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.name {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-align: center;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+  z-index: 1;
+}
+
+.machineBar {
+  width: calc(100% - 8px);
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.machineProgress {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.machineDone {
+  background: var(--green);
+}
+
+.gateIndicator {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--green);
+  z-index: 1;
+}
+
+.clues {
+  display: flex;
+  gap: 2px;
+  font-size: 10px;
+  z-index: 1;
+}
+
+.fogPulse {
+  animation: fog-shimmer 1.5s ease-in-out infinite;
+}
+
+.hunterMarker {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 14px;
+  animation: pulse-heartbeat 1s ease-in-out infinite;
+}
+
+.tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  justify-content: center;
+  z-index: 1;
+}
+
+.token {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.tokenCaptured {
+  opacity: 0.7;
+  filter: grayscale(0.5);
+  font-size: 9px;
+}
+
+.tokenInjured {
+  border: 1.5px solid var(--yellow);
+}
+
+.tokenControlled {
+  border: 2px solid #fff;
+  animation: pulse-heartbeat 2s ease-in-out infinite;
+}
+
+.tokenCaptureShake {
+  animation: capture-shake 0.6s ease-in-out forwards;
+}

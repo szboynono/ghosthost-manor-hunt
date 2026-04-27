@@ -1,0 +1,262 @@
+.root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.demoBadge {
+  background: rgba(124, 77, 255, 0.15);
+  border-bottom: 1px solid rgba(124, 77, 255, 0.3);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: center;
+  padding: 4px 8px;
+  flex-shrink: 0;
+}
+
+.mapArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+  position: relative;
+}
+
+.momentLabel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10, 10, 15, 0.72);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+  text-align: center;
+  padding: 4px 8px;
+  pointer-events: none;
+}
+
+/* ── Controls ── */
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 16px 6px;
+  flex-shrink: 0;
+}
+
+.ctrlBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.ctrlBtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.ctrlBtn:not(:disabled):active {
+  background: var(--surface2);
+}
+
+/* ── Progress dots ── */
+
+.dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 16px 14px;
+  flex-shrink: 0;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.dotActive {
+  background: var(--accent);
+  transform: scale(1.5);
+}
+
+/* ── Recap overlay ── */
+
+.recapOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 15, 0.94);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 16px 28px;
+  z-index: 50;
+  animation: fade-in 0.4s ease;
+}
+
+.recapCard {
+  width: 100%;
+  max-width: 390px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Banner */
+
+.recapBanner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px 20px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.recapBannerWin  { background: linear-gradient(180deg, rgba(0,230,118,0.15) 0%, transparent 100%); }
+.recapBannerLose { background: linear-gradient(180deg, rgba(255,23,68,0.15)  0%, transparent 100%); }
+
+.recapBannerIcon {
+  font-size: 56px;
+  margin-bottom: 10px;
+  animation: slide-up 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.recapBannerTitle {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.recapWin  { color: var(--green); }
+.recapLose { color: var(--red);   }
+
+.recapBannerSub {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+/* Stats row */
+
+.recapStatsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.recapStatCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 4px;
+  gap: 3px;
+}
+
+.recapStatVal {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.recapStatLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Awards */
+
+.recapSection {}
+
+.recapSectionTitle {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+  padding-left: 2px;
+}
+
+.recapAwards {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.recapAwardRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.recapAwardRow:last-child { border-bottom: none; }
+
+.recapAwardIcon  { font-size: 17px; width: 22px; text-align: center; flex-shrink: 0; }
+.recapAwardLabel { font-size: 13px; color: var(--text-dim); flex: 1; }
+.recapAwardName  { font-size: 14px; font-weight: 700; }
+
+/* Hunter note */
+
+.recapHunterNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(255, 23, 68, 0.08);
+  border: 1px solid rgba(255, 23, 68, 0.2);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.recapHunterIcon { font-size: 18px; flex-shrink: 0; }
+
+.recapHunterText {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* Action buttons */
+
+.recapActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

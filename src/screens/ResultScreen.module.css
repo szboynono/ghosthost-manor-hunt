@@ -1,0 +1,198 @@
+.root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-bottom: 16px;
+  animation: fade-in 0.4s ease;
+}
+
+.banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 24px 28px;
+  text-align: center;
+}
+
+.win  { background: linear-gradient(180deg, rgba(0,230,118,0.15) 0%, transparent 100%); }
+.lose { background: linear-gradient(180deg, rgba(255,23,68,0.15) 0%, transparent 100%); }
+
+.bannerIcon {
+  font-size: 64px;
+  margin-bottom: 12px;
+  animation: slide-up 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.bannerTitle {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.win  .bannerTitle { color: var(--green); }
+.lose .bannerTitle { color: var(--red);   }
+
+.bannerSub {
+  font-size: 14px;
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 0 16px;
+  margin-bottom: 12px;
+}
+
+.statCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 6px;
+  gap: 3px;
+}
+
+.statVal {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.statLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.section {
+  padding: 0 16px;
+  margin-bottom: 4px;
+}
+
+.sectionTitle {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.awards {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.awardRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.awardRow:last-child { border-bottom: none; }
+
+.awardIcon { font-size: 18px; width: 24px; text-align: center; }
+
+.awardLabel {
+  font-size: 13px;
+  color: var(--text-dim);
+  flex: 1;
+}
+
+.awardName {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.hunterNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 12px 16px;
+  background: rgba(255,23,68,0.08);
+  border: 1px solid rgba(255,23,68,0.2);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.hunterNoteIcon { font-size: 20px; flex-shrink: 0; }
+
+.hunterNoteText {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.playerSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.playerRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.pAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.pInfo { flex: 1; }
+
+.pName {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.pStatus {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.pStats {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  padding: 0 16px;
+  margin-top: auto;
+}

@@ -1,0 +1,30 @@
+.root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.mapArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.debugBadge {
+  position: absolute;
+  top: 52px;
+  left: 0;
+  right: 0;
+  background: rgba(255,215,64,0.15);
+  border-bottom: 1px solid rgba(255,215,64,0.3);
+  font-size: 10px;
+  color: var(--yellow);
+  text-align: center;
+  padding: 3px;
+  pointer-events: none;
+  z-index: 10;
+}

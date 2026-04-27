@@ -1,0 +1,76 @@
+.panel {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 10px 12px 12px;
+  min-height: 120px;
+}
+
+.hint {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.actionBtn {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px 14px !important;
+  font-size: 14px !important;
+  align-items: stretch !important;
+  flex-direction: column !important;
+}
+
+.actionBtnContent {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+}
+
+.actionBtnTop {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.actionBtnDesc {
+  font-size: 10px;
+  font-weight: 500;
+  opacity: 0.72;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.noiseBadge {
+  margin-left: auto;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.waiting {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 56px;
+  font-size: 14px;
+  color: var(--text-dim);
+  animation: fog-shimmer 1.5s ease-in-out infinite;
+}
+
+.noActions {
+  font-size: 13px;
+  color: var(--text-dim);
+  width: 100%;
+  text-align: center;
+  padding: 16px 0;
+}

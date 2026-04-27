@@ -1,0 +1,35 @@
+{
+  "name": "ghosthost-manor-hunt",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:app": "vite",
+    "dev:server": "tsx server/sessionServer.ts",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:run": "vitest run",
+    "audit:playtest": "vitest run tests/simulation.test.ts --reporter=verbose",
+    "check": "vitest run && tsc && vite build"
+  },
+  "dependencies": {
+    "@discord/embedded-app-sdk": "^2.4.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "ws": "^8.20.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "@types/ws": "^8.18.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "jsdom": "^25.0.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.8",
+    "vitest": "^2.1.3"
+  }
+}

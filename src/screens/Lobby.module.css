@@ -1,0 +1,185 @@
+.root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 16px;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.headerTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.mapCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.mapIcon { font-size: 32px; }
+
+.mapName {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.mapSub {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.section { padding: 0 16px; }
+
+.sectionTitle {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+
+.players {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.playerSlot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.playerInfo { flex: 1; }
+
+.playerName {
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.youBadge {
+  font-size: 10px;
+  font-weight: 800;
+  background: var(--accent);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+
+.playerRole {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.hunterCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 16px;
+  background: linear-gradient(135deg, rgba(255,23,68,0.1), rgba(255,23,68,0.05));
+  border: 1px solid rgba(255,23,68,0.3);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.hunterIcon {
+  font-size: 32px;
+  animation: fog-shimmer 2s ease-in-out infinite;
+}
+
+.hunterInfo { flex: 1; }
+
+.hunterName {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--red);
+}
+
+.hunterSub {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.hunterThreat {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--red);
+  border: 1px solid var(--red);
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+
+.readyBadge {
+  font-size: 10px;
+  font-weight: 800;
+  background: #2ecc71;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+
+.connectionBadge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #2ecc71;
+  margin-left: 8px;
+  letter-spacing: 0.5px;
+  text-transform: none;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 16px 0;
+  margin-top: auto;
+}

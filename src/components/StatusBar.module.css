@@ -1,0 +1,108 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  min-height: 48px;
+  gap: 8px;
+}
+
+.left, .right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.roundBadge {
+  font-size: 12px;
+  font-weight: 800;
+  background: var(--surface2);
+  color: var(--text-dim);
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.machines, .captures {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+}
+
+.machineCount {
+  font-weight: 700;
+  color: var(--green);
+}
+
+.captureCount {
+  font-weight: 700;
+  color: var(--text);
+  transition: color 0.3s;
+}
+
+.heartbeat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pulseUneasy   { animation: pulse-heartbeat 2.2s ease-in-out infinite; }
+.pulseRacing   { animation: pulse-heartbeat 0.9s ease-in-out infinite; }
+.pulsePanicking {
+  animation: pulse-heartbeat 0.38s ease-in-out infinite;
+  color: var(--red);
+}
+
+.fearBar {
+  width: 48px;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: box-shadow 0.4s;
+}
+
+.fearBarGlow {
+  box-shadow: 0 0 8px rgba(255,23,68,0.6);
+}
+
+.fearFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green), var(--yellow), var(--red));
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.controls {
+  display: flex;
+  gap: 4px;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 13px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.iconBtn:active { background: var(--border); }
