@@ -5,7 +5,7 @@
   width: 100%;
   height: 100%;
   background: var(--surface);
-  border: 1.5px solid var(--border2);
+  border: 1.5px solid var(--room-border, var(--border2));
   border-radius: 10px;
   padding: 5px 4px 4px;
   cursor: pointer;
@@ -27,15 +27,15 @@
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 2px;
+  height: 3px;
   background: var(--room-accent, var(--border2));
-  opacity: 0.7;
+  opacity: 0.9;
   border-radius: 10px 10px 0 0;
   transition: opacity 0.2s;
 }
 
 .selected {
-  border-color: var(--accent);
+  border-color: var(--accent) !important;
   background: rgba(124, 77, 255, 0.1);
   box-shadow: 0 0 0 1px rgba(124, 77, 255, 0.4), inset 0 0 12px rgba(124, 77, 255, 0.06);
 }
@@ -43,22 +43,38 @@
 .selected::before { opacity: 1; }
 
 .danger {
-  border-color: rgba(255, 23, 68, 0.55);
+  border-color: rgba(255, 23, 68, 0.55) !important;
   animation: danger-surge 1.8s ease-in-out infinite;
 }
 
 .dangerHigh {
-  border-color: rgba(255, 23, 68, 0.9);
+  border-color: rgba(255, 23, 68, 0.9) !important;
   animation: danger-surge 0.75s ease-in-out infinite;
 }
 
 .trapped {
-  border-color: rgba(255, 215, 64, 0.55);
+  border-color: rgba(255, 215, 64, 0.55) !important;
 }
 
 .gateOpen {
-  border-color: var(--green);
+  border-color: var(--green) !important;
   animation: gate-beacon 2s ease-in-out infinite;
+}
+
+/* ── Room tint (always-on accent glow) ── */
+
+.roomTint {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 25%,
+    var(--room-accent, transparent) 0%,
+    transparent 68%
+  );
+  opacity: 0.07;
+  pointer-events: none;
+  border-radius: 9px;
+  z-index: 0;
 }
 
 /* ── Overlays ── */
@@ -115,13 +131,14 @@
 
 .machineBar {
   width: calc(100% - 10px);
-  height: 3px;
-  background: var(--border);
-  border-radius: 2px;
+  height: 5px;
+  background: var(--border2);
+  border-radius: 3px;
   overflow: hidden;
   z-index: 1;
   margin-top: 3px;
   flex-shrink: 0;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.4);
 }
 
 .machineProgress {
@@ -138,7 +155,7 @@
 /* ── Room icon ── */
 
 .roomIcon {
-  font-size: 22px;
+  font-size: 26px;
   line-height: 1;
   z-index: 1;
   flex: 1;

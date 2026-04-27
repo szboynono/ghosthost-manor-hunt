@@ -75,10 +75,14 @@ export default function RoomCell({
         room.hasTrap  ? styles.trapped    : "",
         room.isGateOpen ? styles.gateOpen : "",
       ].join(" ")}
-      style={{ "--room-accent": accent } as React.CSSProperties}
+      style={{
+        "--room-accent": accent,
+        "--room-border": accent + "70",
+      } as React.CSSProperties}
       onClick={onClick}
       aria-label={room.name}
     >
+      <div className={styles.roomTint} />
       {isDangerous && <div className={styles.fogOverlay} />}
       {repairFlash && <div className={styles.repairFlashOverlay} />}
       {gateFlash && <div className={styles.gateUnlockRing} />}
