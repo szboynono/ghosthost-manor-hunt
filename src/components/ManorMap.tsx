@@ -79,6 +79,8 @@ export default function ManorMap({
               isHunterHere={isHunterHere}
               showHunterClue={showHunterClue}
               isSelected={isSelected}
+              isPlayerRoom={controlled.roomId === roomId}
+              isReachable={isReachable}
               onClick={() => onRoomClick(roomId)}
             />
           </div>

@@ -9,13 +9,15 @@ interface Props {
   isHunterHere: boolean;
   showHunterClue: boolean;
   isSelected: boolean;
+  isPlayerRoom?: boolean;
+  isReachable?: boolean;
   onClick?: () => void;
 }
 
 const PLAYER_IDS = ["p1", "p2", "p3", "p4"] as const;
 
 export default function RoomCell({
-  room, players, isHunterHere, showHunterClue, isSelected, onClick
+  room, players, isHunterHere, showHunterClue, isSelected, isPlayerRoom, isReachable, onClick
 }: Props) {
   const isDangerous = room.fogLevel >= 2 || (showHunterClue && room.fogLevel > 0);
   const machinePercent = room.machineId ? Math.round(room.machineProgress) : null;
@@ -70,6 +72,8 @@ export default function RoomCell({
       className={[
         styles.cell,
         isSelected    ? styles.selected   : "",
+        isPlayerRoom  ? styles.playerRoom : "",
+        isReachable   ? styles.reachable  : "",
         isDangerous   ? styles.danger     : "",
         room.fogLevel >= 3 ? styles.dangerHigh : "",
         room.hasTrap  ? styles.trapped    : "",

@@ -5,6 +5,7 @@ import { buildDemoStates, DEMO_MOMENT_LABELS } from "../game/demoRunner";
 import { computeResult } from "../game/scoring";
 import { PLAYER_COLORS } from "../game/constants";
 import StatusBar from "../components/StatusBar";
+import ObjectivesBar from "../components/ObjectivesBar";
 import ManorMap from "../components/ManorMap";
 import EventCard from "./EventCard";
 import ChaseModal from "./ChaseModal";
@@ -78,6 +79,8 @@ export default function DemoScreen() {
         onToggleMute={() => {}}
         muted={false}
       />
+
+      <ObjectivesBar gameState={current} />
 
       <div className={styles.mapArea}>
         <ManorMap

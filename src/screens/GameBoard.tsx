@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useGame } from "../context/GameContext";
 import type { RoomId, SurvivorAction } from "../game/types";
+import { ADJACENCY } from "../game/constants";
 import StatusBar from "../components/StatusBar";
+import ObjectivesBar from "../components/ObjectivesBar";
 import ManorMap from "../components/ManorMap";
 import ActionPanel from "../components/ActionPanel";
 import EventCard from "./EventCard";
@@ -17,6 +19,12 @@ export default function GameBoard() {
   const controlled = Object.values(gameState.players).find((p) => p.isControlled);
   if (!controlled) return null;
 
+  const hunterAdj = ADJACENCY[gameState.hunter.roomId];
+  const hunterDist =
+    gameState.hunter.roomId === controlled.roomId ? 2
+    : hunterAdj.includes(controlled.roomId) ? 1
+    : 0;
+
   const handleRoomClick = (roomId: RoomId) => {
     setSelectedRoom((prev) => (prev === roomId ? null : roomId));
   };
@@ -25,6 +33,9 @@ export default function GameBoard() {
     submitAction(controlled.id, action);
     setSelectedRoom(null);
   };
+
+  const phase = gameState.phase;
+  const isHunterPhase = phase === "hunterActing" || phase === "resolving";
 
   return (
     <div className={styles.root}>
@@ -36,7 +47,21 @@ export default function GameBoard() {
         muted={muted}
       />
 
+      <ObjectivesBar gameState={gameState} />
+
+      {/* Phase banner */}
+      {isHunterPhase && (
+        <div className={[styles.phaseBanner, phase === "hunterActing" ? styles.phaseDanger : styles.phaseResolve].join(" ")}>
+          {phase === "hunterActing" ? "👁  THE WARDEN IS HUNTING..." : "⚙  RESOLVING ROUND..."}
+        </div>
+      )}
+
       <div className={styles.mapArea}>
+        {/* Danger vignette */}
+        {hunterDist > 0 && (
+          <div className={[styles.vignette, hunterDist >= 2 ? styles.vignetteHigh : ""].join(" ")} />
+        )}
+
         <ManorMap
           gameState={gameState}
           controlledPlayerId={controlled.id}
@@ -53,7 +78,6 @@ export default function GameBoard() {
         onAction={handleAction}
       />
 
-      {/* Overlays */}
       {gameState.phase === "showingEvent" && gameState.currentEvent && (
         <EventCard event={gameState.currentEvent} onDismiss={dismissEvent} />
       )}
@@ -62,10 +86,9 @@ export default function GameBoard() {
         <ChaseModal gameState={gameState} onChoice={resolveChase} />
       )}
 
-      {/* Debug panel */}
       {gameState.isDebugMode && (
         <div className={styles.debugBadge}>
-          🛠 DEBUG · Hunter: {gameState.hunter.roomId} · Round: {gameState.round}
+          🛠 Hunter: {gameState.hunter.roomId} · R{gameState.round}
         </div>
       )}
     </div>

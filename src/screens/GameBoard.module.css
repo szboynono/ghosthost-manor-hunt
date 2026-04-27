@@ -12,19 +12,59 @@
   flex-direction: column;
   overflow: hidden;
   min-height: 0;
+  position: relative;
+}
+
+/* Danger vignette — red screen-edge glow when hunter is near */
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(255, 23, 68, 0.18) 100%);
+  z-index: 6;
+  animation: danger-surge 2s ease-in-out infinite;
+}
+
+.vignetteHigh {
+  background: radial-gradient(ellipse at center, transparent 25%, rgba(255, 23, 68, 0.35) 100%);
+  animation: danger-surge 0.7s ease-in-out infinite;
+}
+
+/* Phase banner */
+.phaseBanner {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  flex-shrink: 0;
+  animation: fog-shimmer 1.2s ease-in-out infinite;
+}
+
+.phaseDanger {
+  background: rgba(255, 23, 68, 0.12);
+  color: var(--red);
+  border-bottom: 1px solid rgba(255, 23, 68, 0.25);
+}
+
+.phaseResolve {
+  background: rgba(124, 77, 255, 0.1);
+  color: var(--accent);
+  border-bottom: 1px solid rgba(124, 77, 255, 0.2);
 }
 
 .debugBadge {
   position: absolute;
-  top: 52px;
+  bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(255,215,64,0.15);
-  border-bottom: 1px solid rgba(255,215,64,0.3);
-  font-size: 10px;
+  background: rgba(255, 215, 64, 0.12);
+  border-top: 1px solid rgba(255, 215, 64, 0.25);
+  font-size: 9px;
   color: var(--yellow);
   text-align: center;
-  padding: 3px;
+  padding: 2px;
   pointer-events: none;
   z-index: 10;
 }

@@ -42,6 +42,42 @@
 
 .selected::before { opacity: 1; }
 
+/* You are here */
+.playerRoom {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  border-width: 2px !important;
+}
+
+.playerRoom::after {
+  content: 'YOU';
+  position: absolute;
+  bottom: 3px;
+  right: 4px;
+  font-size: 7px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+
+/* Reachable — can move here */
+.reachable {
+  border-color: rgba(124, 77, 255, 0.6) !important;
+  box-shadow: 0 0 0 1px rgba(124, 77, 255, 0.25) !important;
+  cursor: pointer;
+}
+
+.reachable::after {
+  content: '→';
+  position: absolute;
+  bottom: 3px;
+  right: 4px;
+  font-size: 10px;
+  font-weight: 900;
+  color: rgba(124, 77, 255, 0.7);
+  z-index: 2;
+}
+
 .danger {
   border-color: rgba(255, 23, 68, 0.55) !important;
   animation: danger-surge 1.8s ease-in-out infinite;
