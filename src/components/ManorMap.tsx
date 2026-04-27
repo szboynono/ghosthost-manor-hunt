@@ -11,38 +11,56 @@ interface Props {
   debugShowHunter: boolean;
 }
 
+// Pre-compute corridors from ADJACENCY (each pair once)
+const CORRIDORS: Array<{
+  from: RoomId; to: RoomId;
+  gridCol: number; gridRow: number;
+  isH: boolean;
+}> = (() => {
+  const seen = new Set<string>();
+  const list: typeof CORRIDORS = [];
+  for (const roomA of ALL_ROOM_IDS) {
+    for (const roomB of ADJACENCY[roomA]) {
+      const key = [roomA, roomB].sort().join("|");
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const [colA, rowA] = ROOM_POSITIONS[roomA];
+      const [colB, rowB] = ROOM_POSITIONS[roomB];
+      // CSS grid is 1-indexed; rooms at odd positions (col*2+1, row*2+1)
+      const cssColA = colA * 2 + 1;
+      const cssRowA = rowA * 2 + 1;
+      const cssColB = colB * 2 + 1;
+      const cssRowB = rowB * 2 + 1;
+      list.push({
+        from: roomA, to: roomB,
+        gridCol: (cssColA + cssColB) / 2,
+        gridRow: (cssRowA + cssRowB) / 2,
+        isH: rowA === rowB,
+      });
+    }
+  }
+  return list;
+})();
+
 export default function ManorMap({
   gameState, controlledPlayerId, selectedRoomId, onRoomClick, debugShowHunter,
 }: Props) {
   const controlled = gameState.players[controlledPlayerId];
   const adjacentToPlayer = ADJACENCY[controlled.roomId];
-
-  // Build grid (3 cols × 3 rows)
-  const grid: (RoomId | null)[][] = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null],
-  ];
-  for (const id of ALL_ROOM_IDS) {
-    const [col, row] = ROOM_POSITIONS[id];
-    grid[row][col] = id;
-  }
+  const hunterRoom = gameState.hunter.roomId;
+  const hunterAdj = ADJACENCY[hunterRoom];
 
   return (
     <div className={styles.grid}>
-      {grid.flat().map((roomId, idx) => {
-        if (!roomId) return <div key={idx} className={styles.empty} />;
-
+      {/* Rooms */}
+      {ALL_ROOM_IDS.map((roomId) => {
+        const [col, row] = ROOM_POSITIONS[roomId];
         const room = gameState.rooms[roomId];
         const playersHere = Object.values(gameState.players).filter(
           (p) => p.roomId === roomId && p.status !== "escaped",
         );
-        const isHunterHere = debugShowHunter && gameState.hunter.roomId === roomId;
-
-        // Show fog/danger clues in adjacent rooms to hunter
-        const hunterAdj = ADJACENCY[gameState.hunter.roomId];
-        const showHunterClue = hunterAdj.includes(roomId) || gameState.hunter.roomId === roomId;
-
+        const isHunterHere = debugShowHunter && hunterRoom === roomId;
+        const showHunterClue = hunterAdj.includes(roomId) || hunterRoom === roomId;
         const isReachable = adjacentToPlayer.includes(roomId);
         const isSelected = selectedRoomId === roomId;
 
@@ -53,6 +71,7 @@ export default function ManorMap({
               styles.cellWrapper,
               isReachable ? styles.reachable : "",
             ].join(" ")}
+            style={{ gridColumn: col * 2 + 1, gridRow: row * 2 + 1 }}
           >
             <RoomCell
               room={room}
@@ -63,6 +82,34 @@ export default function ManorMap({
               onClick={() => onRoomClick(roomId)}
             />
           </div>
+        );
+      })}
+
+      {/* Corridors */}
+      {CORRIDORS.map((c) => {
+        const fromFog = gameState.rooms[c.from].fogLevel;
+        const toFog = gameState.rooms[c.to].fogLevel;
+        const maxFog = Math.max(fromFog, toFog);
+        const isHunterCorridor = debugShowHunter &&
+          (hunterRoom === c.from || hunterRoom === c.to);
+        const isNearHunter = !isHunterCorridor && (
+          hunterAdj.includes(c.from) || hunterAdj.includes(c.to)
+        );
+
+        let dangerClass = "";
+        if (isHunterCorridor) dangerClass = styles.corridorHunter;
+        else if (maxFog >= 2 || isNearHunter) dangerClass = styles.corridorDanger;
+        else if (maxFog >= 1) dangerClass = styles.corridorWarm;
+
+        return (
+          <div
+            key={`${c.from}|${c.to}`}
+            className={[
+              c.isH ? styles.corridorH : styles.corridorV,
+              dangerClass,
+            ].join(" ")}
+            style={{ gridColumn: c.gridCol, gridRow: c.gridRow }}
+          />
         );
       })}
     </div>

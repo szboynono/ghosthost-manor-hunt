@@ -88,6 +88,30 @@ export const HUNTER_START_ROOM: RoomId = "eastHall";
 // Future Discord: replace with Discord user → player-slot assignment at session join.
 export const DEFAULT_LOCAL_PLAYER_ID: PlayerId = "p1";
 
+export const ROOM_ICONS: Record<RoomId, string> = {
+  library:    "📚",
+  eastHall:   "🚪",
+  kitchen:    "🔪",
+  basement:   "⛓",
+  lobby:      "🕯",
+  greenhouse: "🌿",
+  boilerRoom: "🔥",
+  gateA:      "🗝",
+  gateB:      "🗝",
+};
+
+export const ROOM_ACCENT_COLORS: Record<RoomId, string> = {
+  library:    "#c4903a",
+  eastHall:   "#5888b8",
+  kitchen:    "#b85830",
+  basement:   "#7868a8",
+  lobby:      "#c0a038",
+  greenhouse: "#489858",
+  boilerRoom: "#c85820",
+  gateA:      "#4890b8",
+  gateB:      "#4890b8",
+};
+
 export const PLAYER_NAMES = ["Alex", "Blake", "Casey", "Dana"] as const;
 export const PLAYER_ROLES: Role[] = ["mechanic", "medic", "scout", "decoy"];
 export const PLAYER_START_ROOMS: RoomId[] = ["library", "kitchen", "greenhouse", "boilerRoom"];

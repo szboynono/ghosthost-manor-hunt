@@ -1,26 +1,76 @@
+/* 5-column × 5-row grid: rooms at odd positions, corridors at even positions */
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 5px;
+  grid-template-columns: 1fr 20px 1fr 20px 1fr;
+  grid-template-rows: 1fr 20px 1fr 20px 1fr;
   padding: 8px;
   flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
 }
 
-.empty {
-  /* empty placeholder cell */
-}
+/* ── Room wrapper ── */
 
 .cellWrapper {
-  transition: transform 0.1s;
+  position: relative;
+  /* grid-column / grid-row set inline */
 }
 
-.reachable > * {
-  border-color: rgba(124,77,255,0.4);
-  cursor: pointer;
+.reachable > button {
+  border-color: rgba(124, 77, 255, 0.55) !important;
+  box-shadow: 0 0 0 1px rgba(124, 77, 255, 0.3) !important;
 }
 
-.reachable > *:hover {
-  border-color: var(--accent);
-  background: rgba(124,77,255,0.08);
+/* ── Corridor cells ── */
+
+.corridorH,
+.corridorV {
+  position: relative;
+  /* grid position set inline */
+}
+
+/* The hallway strip */
+.corridorH::before,
+.corridorV::before {
+  content: '';
+  position: absolute;
+  border-radius: 3px;
+  background: var(--border2);
+  transition: background 0.4s, box-shadow 0.4s;
+}
+
+.corridorH::before {
+  left: 0; right: 0;
+  top: 50%; transform: translateY(-50%);
+  height: 7px;
+}
+
+.corridorV::before {
+  top: 0; bottom: 0;
+  left: 50%; transform: translateX(-50%);
+  width: 7px;
+}
+
+/* Fog clue: hunter is nearby */
+.corridorWarm.corridorH::before,
+.corridorWarm.corridorV::before {
+  background: rgba(180, 80, 30, 0.5);
+  animation: corridor-hot 2s ease-in-out infinite;
+}
+
+/* Danger: hunter is in an adjacent room */
+.corridorDanger.corridorH::before,
+.corridorDanger.corridorV::before {
+  background: rgba(255, 23, 68, 0.55);
+  box-shadow: 0 0 10px rgba(255, 23, 68, 0.5);
+  animation: corridor-hot 1s ease-in-out infinite;
+}
+
+/* Hunter is in one of the endpoint rooms (debug) */
+.corridorHunter.corridorH::before,
+.corridorHunter.corridorV::before {
+  background: rgba(255, 23, 68, 0.8);
+  box-shadow: 0 0 16px rgba(255, 23, 68, 0.9);
+  animation: corridor-hot 0.5s ease-in-out infinite;
 }

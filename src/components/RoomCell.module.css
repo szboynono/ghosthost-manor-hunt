@@ -1,17 +1,20 @@
+/* --room-accent is set inline per room */
+
 .cell {
   position: relative;
+  width: 100%;
+  height: 100%;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border2);
   border-radius: 10px;
-  padding: 6px 4px 4px;
+  padding: 5px 4px 4px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  min-height: 88px;
-  transition: border-color 0.15s, background 0.15s;
+  gap: 0;
   overflow: hidden;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   font-family: inherit;
@@ -19,43 +22,63 @@
 
 .cell:active { transform: scale(0.97); }
 
-.selected {
-  border-color: var(--accent);
-  background: rgba(124,77,255,0.12);
+/* Room-accent top border stripe */
+.cell::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--room-accent, var(--border2));
+  opacity: 0.7;
+  border-radius: 10px 10px 0 0;
+  transition: opacity 0.2s;
 }
 
+.selected {
+  border-color: var(--accent);
+  background: rgba(124, 77, 255, 0.1);
+  box-shadow: 0 0 0 1px rgba(124, 77, 255, 0.4), inset 0 0 12px rgba(124, 77, 255, 0.06);
+}
+
+.selected::before { opacity: 1; }
+
 .danger {
-  border-color: rgba(255,23,68,0.5);
-  animation: danger-glow 1.8s ease-in-out infinite;
+  border-color: rgba(255, 23, 68, 0.55);
+  animation: danger-surge 1.8s ease-in-out infinite;
 }
 
 .dangerHigh {
-  border-color: rgba(255,23,68,0.85);
-  animation: danger-glow 0.8s ease-in-out infinite;
+  border-color: rgba(255, 23, 68, 0.9);
+  animation: danger-surge 0.75s ease-in-out infinite;
 }
 
 .trapped {
-  border-color: rgba(255,215,64,0.5);
+  border-color: rgba(255, 215, 64, 0.55);
 }
 
 .gateOpen {
   border-color: var(--green);
-  background: rgba(0,230,118,0.08);
+  animation: gate-beacon 2s ease-in-out infinite;
 }
+
+/* ── Overlays ── */
 
 .fogOverlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle, rgba(124,77,255,0.15) 0%, transparent 70%);
-  animation: fog-shimmer 2s ease-in-out infinite;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(124,77,255,0.18) 0%, transparent 65%),
+    radial-gradient(ellipse at 70% 65%, rgba(124,77,255,0.12) 0%, transparent 50%);
+  animation: fog-drift 4s ease-in-out infinite;
   pointer-events: none;
+  border-radius: 9px;
 }
 
 .repairFlashOverlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle, rgba(0,230,118,0.7) 0%, transparent 70%);
-  border-radius: 10px;
+  background: radial-gradient(circle, rgba(0, 230, 118, 0.7) 0%, transparent 70%);
+  border-radius: 9px;
   animation: repair-flash 0.75s ease-out forwards;
   pointer-events: none;
   z-index: 10;
@@ -65,67 +88,118 @@
   position: absolute;
   inset: 0;
   border: 3px solid var(--green);
-  border-radius: 10px;
+  border-radius: 9px;
   animation: gate-unlock-ring 0.9s ease-out forwards;
   pointer-events: none;
   z-index: 10;
 }
 
+/* ── Room name ── */
+
 .name {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   color: var(--text-dim);
   text-align: center;
   letter-spacing: 0.3px;
   line-height: 1.2;
   z-index: 1;
+  text-transform: uppercase;
+  margin-top: 2px;
+  transition: color 0.2s;
 }
 
+.cell:hover .name { color: var(--room-accent, var(--text-dim)); }
+
+/* ── Machine progress bar ── */
+
 .machineBar {
-  width: calc(100% - 8px);
+  width: calc(100% - 10px);
   height: 3px;
   background: var(--border);
   border-radius: 2px;
   overflow: hidden;
   z-index: 1;
+  margin-top: 3px;
+  flex-shrink: 0;
 }
 
 .machineProgress {
   height: 100%;
-  background: var(--accent);
+  background: var(--room-accent, var(--accent));
   border-radius: 2px;
-  transition: width 0.3s ease;
+  transition: width 0.4s ease;
 }
 
 .machineDone {
   background: var(--green);
 }
 
+/* ── Room icon ── */
+
+.roomIcon {
+  font-size: 22px;
+  line-height: 1;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.75;
+  transition: opacity 0.2s, filter 0.2s;
+  padding: 2px 0;
+  filter: drop-shadow(0 0 0px transparent);
+}
+
+.danger .roomIcon,
+.dangerHigh .roomIcon {
+  opacity: 0.6;
+  animation: fog-shimmer 1.5s ease-in-out infinite;
+}
+
+.gateOpen .roomIcon {
+  opacity: 0.9;
+  filter: drop-shadow(0 0 4px rgba(0,230,118,0.5));
+}
+
+/* ── Gate indicator ── */
+
 .gateIndicator {
-  font-size: 9px;
-  font-weight: 700;
+  font-size: 8px;
+  font-weight: 800;
   color: var(--green);
   z-index: 1;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
+
+/* ── Clues row ── */
 
 .clues {
   display: flex;
   gap: 2px;
-  font-size: 10px;
+  font-size: 9px;
   z-index: 1;
+  min-height: 13px;
 }
 
 .fogPulse {
   animation: fog-shimmer 1.5s ease-in-out infinite;
 }
 
+/* ── Hunter marker (debug) ── */
+
 .hunterMarker {
   position: absolute;
-  top: 4px;
+  top: 3px;
   right: 4px;
-  font-size: 14px;
-  animation: pulse-heartbeat 1s ease-in-out infinite;
+  font-size: 12px;
+  animation: pulse-heartbeat 0.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(255, 23, 68, 0.9));
+  z-index: 5;
 }
+
+/* ── Player tokens ── */
 
 .tokens {
   display: flex;
@@ -133,33 +207,38 @@
   gap: 2px;
   justify-content: center;
   z-index: 1;
+  min-height: 18px;
+  align-items: center;
 }
 
 .token {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
+  font-size: 8px;
   font-weight: 800;
   color: #fff;
   flex-shrink: 0;
+  animation: token-enter 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 .tokenCaptured {
-  opacity: 0.7;
-  filter: grayscale(0.5);
-  font-size: 9px;
+  opacity: 0.65;
+  filter: grayscale(0.6);
+  font-size: 7px;
 }
 
 .tokenInjured {
   border: 1.5px solid var(--yellow);
+  box-shadow: 0 0 4px rgba(255, 215, 64, 0.4);
 }
 
 .tokenControlled {
   border: 2px solid #fff;
+  box-shadow: 0 0 8px currentColor;
   animation: pulse-heartbeat 2s ease-in-out infinite;
 }
 

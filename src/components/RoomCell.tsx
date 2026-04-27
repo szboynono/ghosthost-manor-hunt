@@ -1,26 +1,27 @@
 import { useRef, useState, useEffect } from "react";
 import type { Room, Player } from "../game/types";
-import { PLAYER_COLORS } from "../game/constants";
+import { PLAYER_COLORS, ROOM_ICONS, ROOM_ACCENT_COLORS } from "../game/constants";
 import styles from "./RoomCell.module.css";
 
 interface Props {
   room: Room;
   players: Player[];
-  isHunterHere: boolean;    // true only if debug mode
-  showHunterClue: boolean;  // fog/danger visible
+  isHunterHere: boolean;
+  showHunterClue: boolean;
   isSelected: boolean;
   onClick?: () => void;
 }
 
-const PLAYER_IDS = ["p1","p2","p3","p4"] as const;
+const PLAYER_IDS = ["p1", "p2", "p3", "p4"] as const;
 
 export default function RoomCell({
   room, players, isHunterHere, showHunterClue, isSelected, onClick
 }: Props) {
   const isDangerous = room.fogLevel >= 2 || (showHunterClue && room.fogLevel > 0);
   const machinePercent = room.machineId ? Math.round(room.machineProgress) : null;
+  const accent = ROOM_ACCENT_COLORS[room.id as keyof typeof ROOM_ACCENT_COLORS];
+  const icon = ROOM_ICONS[room.id as keyof typeof ROOM_ICONS];
 
-  // Flash when machine reaches 100%
   const prevMachinePercent = useRef<number | null>(machinePercent);
   const [repairFlash, setRepairFlash] = useState(false);
   useEffect(() => {
@@ -34,7 +35,6 @@ export default function RoomCell({
     prevMachinePercent.current = machinePercent;
   }, [machinePercent]);
 
-  // Flash when gate opens
   const prevGateOpen = useRef(room.isGateOpen);
   const [gateFlash, setGateFlash] = useState(false);
   useEffect(() => {
@@ -47,7 +47,6 @@ export default function RoomCell({
     prevGateOpen.current = room.isGateOpen;
   }, [room.isGateOpen]);
 
-  // Shake animation when a player is newly captured
   const prevStatuses = useRef<Record<string, string>>({});
   const [shakingIds, setShakingIds] = useState<Set<string>>(new Set());
   useEffect(() => {
@@ -70,28 +69,22 @@ export default function RoomCell({
     <button
       className={[
         styles.cell,
-        isSelected ? styles.selected : "",
-        isDangerous ? styles.danger : "",
+        isSelected    ? styles.selected   : "",
+        isDangerous   ? styles.danger     : "",
         room.fogLevel >= 3 ? styles.dangerHigh : "",
-        room.hasTrap ? styles.trapped : "",
+        room.hasTrap  ? styles.trapped    : "",
         room.isGateOpen ? styles.gateOpen : "",
       ].join(" ")}
+      style={{ "--room-accent": accent } as React.CSSProperties}
       onClick={onClick}
       aria-label={room.name}
     >
-      {/* Fog shimmer overlay */}
       {isDangerous && <div className={styles.fogOverlay} />}
-
-      {/* Machine repair flash */}
       {repairFlash && <div className={styles.repairFlashOverlay} />}
-
-      {/* Gate unlock ring */}
       {gateFlash && <div className={styles.gateUnlockRing} />}
 
-      {/* Room name */}
       <span className={styles.name}>{room.name}</span>
 
-      {/* Machine progress bar */}
       {machinePercent !== null && (
         <div className={styles.machineBar}>
           <div
@@ -104,27 +97,25 @@ export default function RoomCell({
         </div>
       )}
 
-      {/* Gate indicator */}
+      <div className={styles.roomIcon}>{icon}</div>
+
       {room.isGate && (
         <div className={styles.gateIndicator}>
-          {room.isGateOpen ? "🚪 OPEN" : "🔒 GATE"}
+          {room.isGateOpen ? "OPEN" : "LOCKED"}
         </div>
       )}
 
-      {/* Clues */}
       <div className={styles.clues}>
         {room.hasFootprints && <span title="Footprints">👣</span>}
-        {room.scratchMarks && <span title="Scratch marks">✏️</span>}
-        {room.hasTrap && <span title="Trap">⚠️</span>}
+        {room.scratchMarks && <span title="Scratch marks">✏</span>}
+        {room.hasTrap && <span title="Trap">⚠</span>}
         {isDangerous && <span className={styles.fogPulse} title="Danger">🌫</span>}
       </div>
 
-      {/* Hunter debug marker */}
       {isHunterHere && (
-        <div className={styles.hunterMarker} title="Hunter">👁</div>
+        <div className={styles.hunterMarker} title="The Warden">👁</div>
       )}
 
-      {/* Player tokens */}
       <div className={styles.tokens}>
         {players.map((p) => {
           const colorIndex = PLAYER_IDS.indexOf(p.id as typeof PLAYER_IDS[number]);
@@ -135,11 +126,14 @@ export default function RoomCell({
               className={[
                 styles.token,
                 p.status === "captured" ? styles.tokenCaptured : "",
-                p.status === "injured" ? styles.tokenInjured : "",
-                p.isControlled ? styles.tokenControlled : "",
-                shakingIds.has(p.id) ? styles.tokenCaptureShake : "",
+                p.status === "injured"  ? styles.tokenInjured  : "",
+                p.isControlled          ? styles.tokenControlled : "",
+                shakingIds.has(p.id)    ? styles.tokenCaptureShake : "",
               ].join(" ")}
-              style={{ background: color, boxShadow: p.isControlled ? `0 0 8px ${color}` : "none" }}
+              style={{
+                background: color,
+                boxShadow: p.isControlled ? `0 0 8px ${color}` : "none",
+              }}
               title={`${p.name} (${p.status})`}
             >
               {p.status === "captured" ? "🔒" : p.name[0]}

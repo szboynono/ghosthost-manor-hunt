@@ -37,15 +37,19 @@ export default function StatusBar({ gameState, controlledId, onToggleDebug, onTo
     <div className={styles.bar}>
       <div className={styles.left}>
         <div className={styles.roundBadge}>R{gameState.round}</div>
-        <div className={styles.machines}>
-          <span>⚙️</span>
-          <span className={styles.machineCount}>{gameState.machinesRepaired}/5</span>
+        <div className={styles.stat}>
+          <span>⚙</span>
+          <span className={[styles.statValue, styles.statGreen].join(" ")}>
+            {gameState.machinesRepaired}/5
+          </span>
         </div>
-        <div className={styles.captures}>
+        <div className={styles.stat}>
           <span>🔒</span>
           <span
-            className={styles.captureCount}
-            style={{ color: gameState.eliminations >= 2 ? "var(--red)" : undefined }}
+            className={[
+              styles.statValue,
+              gameState.eliminations >= 2 ? styles.statRed : "",
+            ].join(" ")}
           >
             {gameState.eliminations}/3
           </span>
@@ -70,7 +74,7 @@ export default function StatusBar({ gameState, controlledId, onToggleDebug, onTo
         </div>
         <div className={styles.controls}>
           {gameState.isDebugMode && (
-            <button className={styles.iconBtn} onClick={onToggleDebug} title="Debug mode">🛠</button>
+            <button className={styles.iconBtn} onClick={onToggleDebug} title="Debug">🛠</button>
           )}
           <button className={styles.iconBtn} onClick={onToggleMute} title={muted ? "Unmute" : "Mute"}>
             {muted ? "🔇" : "🔊"}

@@ -1,19 +1,22 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:          #0a0a0f;
-  --surface:     #13131c;
-  --surface2:    #1c1c2e;
-  --border:      #2a2a3e;
+  --bg:          #08080d;
+  --surface:     #0f0f18;
+  --surface2:    #181828;
+  --border:      #252538;
+  --border2:     #2e2e48;
   --accent:      #7c4dff;
   --accent2:     #ff4d7c;
   --green:       #00e676;
   --yellow:      #ffd740;
   --red:         #ff1744;
   --text:        #e8e8f0;
-  --text-dim:    #8888aa;
+  --text-dim:    #7878a0;
   --fog:         rgba(124, 77, 255, 0.15);
-  --danger-glow: rgba(255, 23, 68, 0.3);
+  --danger-glow: rgba(255, 23, 68, 0.35);
+  --amber:       #c4903a;
+  --ember:       #c85820;
 
   --p1: #e74c3c;
   --p2: #3498db;
@@ -56,13 +59,55 @@ html, body {
 }
 
 @keyframes fog-shimmer {
-  0%, 100% { opacity: 0.6; }
+  0%, 100% { opacity: 0.5; }
   50%       { opacity: 1; }
+}
+
+@keyframes fog-drift {
+  0%   { transform: translateX(-6px) translateY(2px); opacity: 0.4; }
+  33%  { transform: translateX(4px) translateY(-3px); opacity: 0.7; }
+  66%  { transform: translateX(-2px) translateY(4px); opacity: 0.5; }
+  100% { transform: translateX(-6px) translateY(2px); opacity: 0.4; }
 }
 
 @keyframes danger-glow {
   0%, 100% { box-shadow: 0 0 8px var(--danger-glow); }
   50%       { box-shadow: 0 0 24px var(--danger-glow), 0 0 48px var(--danger-glow); }
+}
+
+@keyframes danger-surge {
+  0%, 100% {
+    box-shadow: 0 0 6px var(--danger-glow), inset 0 0 8px rgba(255,23,68,0.06);
+    border-color: rgba(255,23,68,0.5);
+  }
+  50% {
+    box-shadow: 0 0 22px var(--danger-glow), 0 0 44px var(--danger-glow), inset 0 0 14px rgba(255,23,68,0.14);
+    border-color: rgba(255,23,68,0.9);
+  }
+}
+
+@keyframes corridor-hot {
+  0%, 100% { opacity: 0.25; }
+  50%       { opacity: 0.85; }
+}
+
+@keyframes token-enter {
+  0%   { transform: scale(0) translateY(-6px); opacity: 0; }
+  65%  { transform: scale(1.18) translateY(0); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes gate-beacon {
+  0%, 100% { box-shadow: 0 0 6px rgba(0,230,118,0.4), inset 0 0 6px rgba(0,230,118,0.06); }
+  50%       { box-shadow: 0 0 18px rgba(0,230,118,0.7), inset 0 0 12px rgba(0,230,118,0.12); }
+}
+
+@keyframes room-flicker {
+  0%, 88%, 100% { opacity: 1; }
+  90%  { opacity: 0.82; }
+  93%  { opacity: 1; }
+  96%  { opacity: 0.6; }
+  98%  { opacity: 0.95; }
 }
 
 @keyframes slide-up {
@@ -133,7 +178,7 @@ html, body {
 .btn-ghost {
   background: var(--surface2);
   color: var(--text);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border2);
 }
 
 .btn-success {
